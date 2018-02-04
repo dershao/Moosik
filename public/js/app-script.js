@@ -8,7 +8,7 @@ $(document).ready(function() {
       url: '/twitter',
       data: {name: name},
       success: function(data) {
-
+        console.log(data);
         location.reload();
       }
     });

@@ -41,9 +41,14 @@ nav li {
 }
 
 #get-tweets {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 10px;
-    background: #0084b4;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  background: #0084b4;
+}
+
+#album-image {
+  height: 600px;
+  width: 600px;
 }

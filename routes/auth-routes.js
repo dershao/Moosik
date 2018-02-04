@@ -17,7 +17,7 @@ router.get('/twitter', passport.authenticate('twitter'));
 
 router.get('/twitter/callback', passport.authenticate('twitter'), (req, res) => {
 
-  res.redirect('/app');
+  res.render('/app', {user: req.user, sentiment: null, imageUrl: null, trackUrl: null});
 });
 
 module.exports = router;

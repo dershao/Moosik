@@ -3,13 +3,15 @@ const Twitter = require('twitter');
 const auth = require('../config/auth.js');
 const bodyParser = require('body-parser');
 
-var spawn = require('child_process').spawn;
+var child_process = require('child_process');
 
 const TAG = "moosik";
 
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 router.post('/', urlencodedParser, (req, res) => {
+
+  var resOutputs;
 
   var client = new Twitter({
     consumer_key: auth.twitterAuth.consumerKey,
@@ -31,17 +33,24 @@ router.post('/', urlencodedParser, (req, res) => {
         }
       }
       console.log(tweet);
-      var process = spawn("python", ["-W ignore ../sentinet.py " + tweet]);
-      process.stdout.on('close', function(chunk) {
-        var textChunk = chunk.toString('utf8');
-        print(textChunk);
-      });
+
+      var outputBuffer = child_process.execSync('python -W ignore ./sentinet.py ' + tweet);
+
+      output = outputBuffer.toString().trim();
+
+      resOutputs = output.split('\r');
+      for (var i = 0; i < resOutputs.length; i++) {
+        resOutputs[i] = resOutputs[i].replace("\n", "");
+      }
+      console.log(resOutputs);
+      res.json({sentiment: resOutputs[0], imageUrl: resOutputs[1], trackUrl:  resOutputs[2]});
     }
     else {
       console.log(error);
+      res.status(500).end();
     }
   });
-  res.status(200).end();
+
 });
 
 

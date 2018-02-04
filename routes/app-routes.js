@@ -9,9 +9,8 @@ const authCheck = (req, res, next) => {
     next();
   }
 }
-
 router.get('/', authCheck, (req, res) => {
-  res.render('app', {user: req.user});
+  res.render('app', {user: req.user, sentiment: null, imageUrl: null, trackUrl: null});
 });
 
 module.exports = router;
