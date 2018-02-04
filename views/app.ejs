@@ -24,6 +24,8 @@
         <h2 id="subheading"><%=user.username%></h2>
       </div>
 
+      <div class="loader"></div>
+
       <div id="btn-wrapper">
         <form id="tweet-form">
           <button id="get-tweets" type="submit">Get my latest Tweet</a>
@@ -31,8 +33,7 @@
       </div>
 
       <div id="album-image">
-        <img src="<%= imageUrl %>" alt="No image url">
-        <div><%= imageUrl %></div>
+        <a id="img-link" href="" target="_blank"><img id="image" src=""></a>
       </div>
     </div>
   </body>

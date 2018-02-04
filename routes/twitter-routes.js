@@ -11,8 +11,6 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 router.post('/', urlencodedParser, (req, res) => {
 
-  var resOutputs;
-
   var client = new Twitter({
     consumer_key: auth.twitterAuth.consumerKey,
     consumer_secret: auth.twitterAuth.consumerSecret,
@@ -34,24 +32,24 @@ router.post('/', urlencodedParser, (req, res) => {
       }
       console.log(tweet);
 
-      var outputBuffer = child_process.execSync('python -W ignore ./sentinet.py ' + tweet);
+      //var outputBuffer = child_process.execSync('python -W ignore ./sentinet.py ' + tweet);
 
-      output = outputBuffer.toString().trim();
+      var sentimentAnalysis = child_process.exec('python -W ignore ./sentinet.py ' + tweet, (error, stdout, stderr) => {
+        var output = stdout.toString().trim();
+        var resOutputs = output.split('\r');
+        for (var i = 0; i < resOutputs.length; i++) {
+          resOutputs[i] = resOutputs[i].replace("\n", "");
+        }
 
-      resOutputs = output.split('\r');
-      for (var i = 0; i < resOutputs.length; i++) {
-        resOutputs[i] = resOutputs[i].replace("\n", "");
-      }
-      console.log(resOutputs);
-      res.json({sentiment: resOutputs[0], imageUrl: resOutputs[1], trackUrl:  resOutputs[2]});
+        res.json({user: req.user, sentiment: resOutputs[0], imageUrl: resOutputs[1], trackUrl:  resOutputs[2]});
+      });
+
     }
     else {
       console.log(error);
       res.status(500).end();
     }
   });
-
 });
-
 
 module.exports = router;
