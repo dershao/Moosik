@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Moosik</title>
+    <link rel="stylesheet" type="text/css" href="/assets/app-page.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/js/app-script.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <nav>
+        <ul>
+            <% if (user) { %>
+            <li><a href="/auth/logout">Logout</a></l1>
+            <% } else { %>
+            <l1><a href="/auth/login">Login</a></l1>
+            <% } %>
+            <li><a href="/">Homepage</a></li>
+        </ul>
+      </nav>
+      <div id="title">
+        <h1 id="heading">Moosik</h1>
+        <h2 id="subheading"><%=user.username%></h2>
+      </div>
+
+      <div id="btn-wrapper">
+        <form id="tweet-form">
+          <button id="get-tweets" type="submit">Get my latest Tweet</a>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

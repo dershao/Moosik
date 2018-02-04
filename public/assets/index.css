@@ -1,0 +1,38 @@
+#title {
+  font-size: 32px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  width: 100%;
+}
+
+#heading {
+  margin: 30px auto;
+  width: 50%;
+  text-align: center;
+  font-family: Impact, Arial Black, Arial;
+}
+
+#subheading {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+
+#twitter-wrapper {
+  margin: 0 auto;
+  width: 40em;
+}
+
+#twitter-box {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.login-btn{
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    background: #0084b4;
+}
