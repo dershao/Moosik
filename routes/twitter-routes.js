@@ -40,6 +40,8 @@ router.post('/', urlencodedParser, (req, res) => {
         for (var i = 0; i < resOutputs.length; i++) {
           resOutputs[i] = resOutputs[i].replace("\n", "");
         }
+        console.log("Image URL: " + resOutputs[1])
+        console.log("Song URL: " + resOutputs[2])
 
         res.json({user: req.user, sentiment: resOutputs[0], imageUrl: resOutputs[1], trackUrl:  resOutputs[2]});
       });

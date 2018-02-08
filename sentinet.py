@@ -8,6 +8,7 @@ import sys
 import csv
 import json
 import ast
+import pickle
 
 sentiments = []
 content = []
@@ -17,7 +18,7 @@ genre1 = ""
 genre2 = ""
 temp = []
 mdict = {}
-x = ["I enjoy sad happiness"]
+x = []
 args = ""
 
 for i in range(1, len(sys.argv)):
@@ -58,6 +59,10 @@ log_model = LogisticRegression()
 log_model = log_model.fit(X = X_train, y = y_train)
 X_test = vectorizer.transform(x)
 y_pred = log_model.predict(X_test)
+
+filename = 'finalized_model.sav'
+pickle.dump(log_model, open(filename, 'wb'))
+
 print(y_pred[0])
 
 if (y_pred[0] == "anger"):
@@ -76,8 +81,8 @@ if (y_pred[0] == "fun"):
     genre1 = "Krautrock"
     genre2 = "Folk"
 if (y_pred[0] == "happiness"):
-    genre1 = "Hip-Hop"
-    genre2 = ""
+    genre1 = "Electronic"
+    genre2 = "Hip-Hop"
 if (y_pred[0] == "hate"):
     genre1 = "Metal"
     genre2 = ""
@@ -85,8 +90,8 @@ if (y_pred[0] == "love"):
     genre1 = "Jazz"
     genre2 = ""
 if (y_pred[0] == "neutral"):
-    genre1 = "Post-Rock"
-    genre2 = ""
+    genre1 = "Punk"
+    genre2 = "Experimental Pop"
 if (y_pred[0] == "relief"):
     genre1 = "Post-Punk"
     genre2 = ""
@@ -117,17 +122,16 @@ randomGenreChoice = r.randint(0,2)
 if (genre2 == ""):
 	randomGenreChoice = 1
 
-randomSongChoice = r.randint(0, len(genre1l))
-
-randomSong = genre1l[randomSongChoice]
-
-print(randomSong['image'])
-print(randomSong['trackUrl'])
-
-	        # if (row[9][0]['genre_title'] == genre1):
-	        #     genre1l.append(row[0	])
-	        # if (row[9][0]['genre_title'] == genre2):
-	        #     genre2l.append(row[0])
+if (randomGenreChoice == 1):
+	randomSongChoice = r.randint(0, len(genre1l) - 1)
+	randomSong = genre1l[randomSongChoice]
+	print(randomSong['image'])
+	print(randomSong['trackUrl'])
+else:
+	randomSongChoice = r.randint(0, len(genre2l) - 1)
+	randomSong = genre2l[randomSongChoice]
+	print(randomSong['image'])
+	print(randomSong['trackUrl'])
 
 sys.stdout.flush();
 # print(len(X_test))

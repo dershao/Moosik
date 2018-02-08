@@ -7,7 +7,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  req.session.destroy();
+  req.logout();
   res.redirect('/');
 });
 
@@ -17,7 +17,7 @@ router.get('/twitter', passport.authenticate('twitter'));
 
 router.get('/twitter/callback', passport.authenticate('twitter'), (req, res) => {
 
-  res.render('app', {user: req.user, sentiment: null, imageUrl: null, trackUrl: null});
+  res.redirect('/app');
 });
 
 module.exports = router;
